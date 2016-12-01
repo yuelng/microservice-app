@@ -17,7 +17,7 @@
 # Usage:
 #   [VERSION=v3] [REGISTRY="gcr.io/google_containers"] make build
 VERSION?=v3
-REGISTRY?=gcr.io/google_containers
+REGISTRY?=192.168.1.10:5000
 
 release: clean build push clean
 
@@ -28,7 +28,7 @@ build:
 
 # push the image to an registry
 push:
-	gcloud docker push ${REGISTRY}/guestbook:${VERSION}
+	docker push ${REGISTRY}/guestbook:${VERSION}
 	
 # remove previous images and containers
 clean: 

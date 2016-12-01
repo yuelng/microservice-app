@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM busybox:ubuntu-14.04
+FROM golang:1.6.0
 
-ADD ./bin/guestbook /app/guestbook
-ADD ./_src/public/index.html /app/public/index.html
-ADD ./_src/public/script.js /app/public/script.js
-ADD ./_src/public/style.css /app/public/style.css
+ADD . /go/src/guestbook
+RUN pwd
 
-WORKDIR /app
-CMD ["./guestbook"]
-EXPOSE 3000
+WORKDIR /go/src
+RUN cd guestbook/ && go get && go build -o ../bin/guestbook
+RUN cp guestbook/guestbook/Dockerfile .
+
+CMD tar cvzf - .

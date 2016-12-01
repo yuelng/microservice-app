@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.6.0
+FROM busybox:ubuntu-14.04
 
-ADD . /go/src/github.com/GoogleCloudPlatform/kubernetes/examples/guestbook-go/_src
+ADD ./bin/guestbook /app/guestbook
+ADD ./guestbook/public/index.html /app/public/index.html
+ADD ./guestbook/public/script.js /app/public/script.js
+ADD ./guestbook/public/style.css /app/public/style.css
 
-WORKDIR /go/src/github.com/GoogleCloudPlatform/kubernetes/examples/guestbook-go/
-RUN cd _src/ && go get && go build -o ../bin/guestbook
-RUN cp _src/guestbook/Dockerfile .
-
-CMD tar cvzf - .
+WORKDIR /app
+CMD ["./guestbook"]
+EXPOSE 3000

@@ -1,6 +1,4 @@
 <!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
 <!-- END MUNGE: UNVERSIONED_WARNING -->
 
 ## Guestbook Example
