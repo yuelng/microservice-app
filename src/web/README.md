@@ -11,7 +11,7 @@ Releasing the image requires that you have access to the docker registry user ac
 
 To build and release the guestbook image:
 
-    cd examples/guestbook-go/_src
+    cd examples/guestbook-go/web
     make release
 
 To build and release the guestbook image with a different registry and version:

@@ -15,10 +15,10 @@
 FROM golang:1.6.0
 
 ADD . /go/src/guestbook
-RUN pwd
-
 WORKDIR /go/src
+
 RUN cd guestbook/ && go get && go build -o ../bin/guestbook
 RUN cp guestbook/guestbook/Dockerfile .
+RUN ls -al
 
-CMD tar cvzf - .
+CMD tar czf - .
