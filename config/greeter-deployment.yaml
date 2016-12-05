@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: greeter
+  # these labels can be applied automatically
+  # from the labels in the pod template if not set
+  # labels:
+  #   app: redis
+  #   role: master
+  #   tier: backend
+spec:
+  # this replicas value is default
+  # modify it according to your case
+  replicas: 1
+  # selector can be applied automatically
+  # from the labels in the pod template if not set
+  # selector:
+  #   matchLabels:
+  #     app: guestbook
+  #     role: master
+  #     tier: backend
+  template:
+    metadata:
+      labels:
+        app: greeter
+        tier: backend
+    spec:
+      containers:
+      - name: greeter
+        image: 192.168.1.10:5000/greeter:{version}
+#        resources:
+#          requests:
+#            cpu: 100m
+#            memory: 100Mi
+        ports:
+        - containerPort: 50000
+          name: greeter-server

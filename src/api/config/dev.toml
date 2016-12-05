@@ -1,0 +1,7 @@
+[database]
+dialect = 'postgres'
+url = 'postgresql://apollo_dev:apollo_dev@localhost/apollo_dev?sslmode=disable'
+
+[jwt]
+secret = 'apollo_jwt_secret_007'
+duration = 30     # time unit is day

@@ -1,17 +1,34 @@
-#!/usr/bin/env bash
-cd /home/vagrant/projects/guessbook-go/src/web
-docker run golang:1.6.0 mkdir -p /go/src/guestbook
-docker run golang:1.6.0 go get -v github.com/codegangsta/negroni
-docker run golang:1.6.0 go get -v github.com/gorilla/mux
-docker run golang:1.6.0 go get -v github.com/xyproto/simpleredis
-docker commit $(docker ps -lq) golang:1.6.0
+#!/bin/bash
 
-# publish docker
-VERSION=$1 REGISTRY="192.168.1.10:5000" make release
+SERVICES=("guestbook" "greeter")
+#SERVICES=("greeter")
 
-# roll update service
-cd /home/vagrant/projects/guessbook-go
-sed -i 's/{version}/'$1'/g' guestbook-deployment.yaml
-kubectl apply -f .
-#kubectl rolling-update guestbook -f guestbook-controller.json
-#kubectl rolling-update guestbook --image=192.168.1.10:5000/guestbook:$1
+function init {
+    echo "Add base and third-party package to golang1.6.0 image"
+    cd /home/vagrant/projects/guessbook-go/
+    docker build --rm --force-rm -t golang:1.6.0 .
+}
+
+function deploy_service {
+    echo "Create or update service "${service}
+    sudo su - vagrant
+    cd ~/projects/guessbook-go/src/${service}
+
+    # compile and package image then publish image to docker
+    VERSION=$1 REGISTRY="192.168.1.10:5000" make release
+    VERSION=$1 REGISTRY="192.168.1.10:5000" make clean
+
+    # roll update service web image version
+    cd ~/projects/guessbook-go
+    sed -i 's/{version}/'$1'/g' ${service}-deployment.yaml
+
+    kubectl apply -f ./config/${service}-deployment.yaml
+    kubectl apply -f ./config/${service}-service.yaml
+}
+
+init
+
+for service in ${SERVICES[@]}
+do
+    deploy_service
+done
