@@ -1,10 +1,10 @@
-FROM golang:1.6.0
+FROM golang:1.7
 
-RUN  mkdir -p /go/src/greeter
+RUN rm -rf /go/src/greeter
 ADD . /go/src/greeter
 WORKDIR /go/src
 
-RUN cd greeter && go get && go build -o ../bin/greeter
+RUN cd greeter && go get -v && go build -o ../bin/greeter
 RUN cp greeter/greeter/Dockerfile .
 
 CMD tar czf - .

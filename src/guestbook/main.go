@@ -22,7 +22,7 @@ import (
 	"os"
 	"strings"
 	"log"
-	"context"
+	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	pb "base/protos/helloworld"
 
@@ -41,7 +41,7 @@ var (
 	masterPool *simpleredis.ConnectionPool
 	slavePool  *simpleredis.ConnectionPool
 )
-var httpContext = context.Background()
+//var httpContext = context.Background()
 
 func ListRangeHandler(rw http.ResponseWriter, req *http.Request) {
 	key := mux.Vars(req)["key"]
@@ -62,6 +62,7 @@ func ListPushHandler(rw http.ResponseWriter, req *http.Request) {
 func InfoHandler(rw http.ResponseWriter, req *http.Request) {
 	rqId := uuid.NewRandom()
 	fmt.Println(rqId)
+	go greeterClient()
 	//rqCtx := appContext.WithRqId(httpContext, string(rqId))
 	//logger := appContext.Logger(rqCtx)
 
@@ -105,13 +106,12 @@ func main() {
 
 	n := negroni.Classic()
 	n.UseHandler(r)
-	go greeterClient()
 	n.Run(":3000")
 
 }
 
 const (
-	address     = "localhost:50000"
+	address     = "greeter:50000"
 	defaultName = "world"
 )
 
@@ -140,7 +140,7 @@ func greeterClient() {
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
-	log.Println(r1.Message)
+	log.Println("hello from client" + r1.Message)
 	log.Printf("Greeting: %s", r.Message)
 
 }

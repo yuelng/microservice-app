@@ -8,19 +8,19 @@ import (
 
 type safeMap struct {
 	lock *sync.RWMutex
-	sm   map[string]*grpc.ClientConn
+	sm   map[interface{}]interface{}
 }
 
 // NewSafeMap return a new thread safe map
 func newSafeMap() *safeMap {
 	return &safeMap{
 		lock: new(sync.RWMutex),
-		sm:   make(map[string]*grpc.ClientConn),
+		sm:   make(map[interface{}]interface{}),
 	}
 }
 
 // Get from maps return the k's value
-func (m *safeMap) Get(k string) *grpc.ClientConn {
+func (m *safeMap) Get(k interface{}) interface{} {
 	m.lock.RLock()
 	defer m.lock.RUnlock()
 	if val, ok := m.sm[k]; ok {
@@ -30,7 +30,7 @@ func (m *safeMap) Get(k string) *grpc.ClientConn {
 }
 
 // Set Maps the given key and value. Returns false if the key is already in the map and changes nothing.
-func (m *safeMap) Set(k string, v *grpc.ClientConn) bool {
+func (m *safeMap) Set(k interface{}, v interface{}) bool {
 	m.lock.Lock()
 	defer m.lock.Unlock()
 	if val, ok := m.sm[k]; !ok {
@@ -44,7 +44,7 @@ func (m *safeMap) Set(k string, v *grpc.ClientConn) bool {
 }
 
 // Check returns true if k is exist in the map.
-func (m *safeMap) Check(k string) bool {
+func (m *safeMap) Check(k interface{}) bool {
 	m.lock.RLock()
 	defer m.lock.RUnlock()
 	if _, ok := m.sm[k]; ok {
@@ -53,13 +53,13 @@ func (m *safeMap) Check(k string) bool {
 	return false
 }
 
-func (m *safeMap) Delete(k string) {
+func (m *safeMap) Delete(k interface{}) {
 	m.lock.Lock()
 	defer m.lock.Unlock()
 	delete(m.sm, k)
 }
 
-func (m *safeMap) List() map[string]*grpc.ClientConn {
+func (m *safeMap) List() map[interface{}]interface{} {
 	m.lock.RLock()
 	defer m.lock.RUnlock()
 	return m.sm

@@ -28,7 +28,7 @@ func StartServiceConns(address string, serviceList []string) {
 // CloseServiceConns close all established conns
 func CloseServiceConns() {
 	for _, conn := range serviceConns.List() {
-		conn.Close()
+		conn.(*grpc.ClientConn).Close()
 	}
 }
 
@@ -45,7 +45,7 @@ func CallRPC(ctx context.Context, client interface{}, serviceName string, method
 		}
 	}()
 
-	conn := serviceConns.Get(serviceName)
+	conn := serviceConns.Get(serviceName).(*grpc.ClientConn)
 	if conn == nil {
 		return nil, fmt.Errorf("service conn '%s' not found", serviceName)
 	}

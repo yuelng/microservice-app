@@ -46,3 +46,14 @@ Code examples are executed via `go run`:
     go run rpc_client.go 10
 
 To learn more, see [Go RabbitMQ client](https://github.com/streadway/amqp).
+
+## 应用程序的异步与解耦
+## 消息缓冲
+## 消息分发
+## P 生产者 rabbitmq 交换机与队列 C 消费者
+## 虚拟主机,交换机,队列,和绑定(交换机与队列多对多绑定)
+# sudo systemctl start rabbitmq-server
+# sudo invoke-rc.d rabbitmq-server restart
+
+# 广播消息,跨集群走消息队列
+# 队列消息最小化原则,如果数据量大使用数据库

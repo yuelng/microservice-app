@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.6.0
+FROM golang:1.7
 
-RUN  mkdir -p /go/src/guestbook
+RUN  rm -rf /go/src/guestbook
 ADD . /go/src/guestbook
 WORKDIR /go/src
 
-RUN cd guestbook/ && go get && go build -o ../bin/guestbook
+RUN cd guestbook/ && go get -v && go build -o ../bin/guestbook
 RUN cp guestbook/guestbook/Dockerfile .
 
 CMD tar czf - .

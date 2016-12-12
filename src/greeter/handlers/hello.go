@@ -14,11 +14,11 @@ type Server struct{}
 func (s *Server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
 	md, _ := metadata.FromContext(ctx)
 	fmt.Println(md["key1"])
-	fmt.Println("hello from server")
+	fmt.Println("hello from server,hello")
 	return &pb.HelloReply{Message: "Hello " + in.Name+in.Num}, nil
 }
 
 func (s *Server) SayHelloAgain(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
-	fmt.Println("hello from server")
+	fmt.Println("hello from server,hello")
 	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
 }
