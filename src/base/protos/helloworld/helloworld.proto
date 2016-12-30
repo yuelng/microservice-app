@@ -30,6 +30,7 @@
 // https://github.com/gogo/protobuf
 // protoc --go_out=plugins=grpc:. *.proto
 // protoc --gofast_out=plugins=grpc:. my.proto
+
 // protoc -I helloworld/ helloworld/helloworld.proto --go_out=plugins=grpc:helloworld
 
 syntax = "proto3";

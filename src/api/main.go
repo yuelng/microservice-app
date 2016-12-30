@@ -7,8 +7,8 @@ import (
 	"flag"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"base/rpc"
-	pb "base/protos/helloworld"
+	//"base/rpc"
+	//pb "base/protos/helloworld"
 )
 
 const (
@@ -16,11 +16,8 @@ const (
 )
 func init() {
 	migration.CreateDatabase()
-	db := models.InitDB()
-	defer db.Close()
 
-	db.InitSchema()
-	db.Seed()
+	models.InitDB()
 }
 
 func main() {
@@ -52,7 +49,7 @@ func main() {
 	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8080")
 
-	rpc.StartServiceConns("","")
-	defer conn.Close()
-	c := pb.NewGreeterClient(conn)
+	//rpc.StartServiceConns("","")
+	//defer conn.Close()
+	//c := pb.NewGreeterClient(conn)
 }

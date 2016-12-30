@@ -1,0 +1,8 @@
+// The request message containing the user's name.
+syntax = "proto3";
+package message;
+
+message HelloRequest {
+    string name = 1;
+    string num =2;
+}

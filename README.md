@@ -13,3 +13,16 @@
 ├── handlers
 │   └── hello.go
 └── main.go
+
+# use jwt stateless 
+状态指的是请求在client/server交互过程中的上下文信息
+有状态是指,server保存了client的请求状态,server会通过client传递的sessionId在其作用域内找到之前的交互信息
+无状态是指,每个请求的是独立的,要求客户端保存所有需要认证的消息,每次认证带上自己的状态
+github.com/dgrijalva/jwt-go
+
+# 为http加上ssl 
+
+
+参考
+[jwt-go](https://godoc.org/github.com/dgrijalva/jwt-go#example-Parse--Hmac)
+[acme.sh](https://github.com/Neilpang/acme.sh)

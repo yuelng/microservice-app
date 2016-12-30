@@ -22,11 +22,10 @@ import (
 	"os"
 	"strings"
 	"log"
-	"golang.org/x/net/context"
-	"google.golang.org/grpc"
 	pb "base/protos/helloworld"
 
 	//appContext "base/util"
+	"base/rpc"
 
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
@@ -34,7 +33,7 @@ import (
 	"github.com/pborman/uuid"
 	//"github.com/uber-go/zap"
 	"fmt"
-	"github.com/grpc-ecosystem/go-grpc-prometheus"
+	"golang.org/x/net/context"
 )
 
 var (
@@ -103,7 +102,7 @@ func main() {
 	r.Path("/rpush/{key}/{value}").Methods("GET").HandlerFunc(ListPushHandler)
 	r.Path("/info").Methods("GET").HandlerFunc(InfoHandler)
 	r.Path("/env").Methods("GET").HandlerFunc(EnvHandler)
-
+	go greeterClient()
 	n := negroni.Classic()
 	n.UseHandler(r)
 	n.Run(":3000")
@@ -111,36 +110,23 @@ func main() {
 }
 
 const (
-	address     = "greeter:50000"
+	//address     = "greeter:50000"
+	greeterService = "localhost:50000"
 	defaultName = "world"
 )
 
 func greeterClient() {
-	context.Background()
-	// Set up a connection to the server.
-	conn, err := grpc.Dial(address,
-		grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_prometheus.UnaryClientInterceptor),
-           	grpc.WithStreamInterceptor(grpc_prometheus.StreamClientInterceptor))
-	if err != nil {
-		log.Fatalf("did not connect: %v", err)
-	}
+	ctx := context.Background()
+	rpc.RegisterClient(greeterService, pb.NewGreeterClient)
 
-	defer conn.Close()
-	c := pb.NewGreeterClient(conn)
-
-
-	// Contact the server and print out its response.
 	name := defaultName
-	if len(os.Args) > 1 {
-		name = os.Args[1]
-	}
-	r, err := c.SayHello(context.Background(), &pb.HelloRequest{Name: name,Num:"2"})
-	r1, err := c.SayHelloAgain(context.Background(), &pb.HelloRequest{Name: name})
+	r, err :=rpc.Call(ctx,  greeterService, "SayHello", &pb.HelloRequest{Name: name,Num:"2"})
+	r1, err :=rpc.Call(ctx, greeterService, "SayHelloAgain", &pb.HelloRequest{Name: name})
+
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
-	log.Println("hello from client" + r1.Message)
-	log.Printf("Greeting: %s", r.Message)
+	log.Println("hello from client" + r.(*pb.HelloReply).Message)
+	log.Printf("Greeting: %s", r1.(*pb.HelloReply).Message)
 
 }

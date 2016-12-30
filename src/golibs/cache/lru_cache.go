@@ -21,6 +21,7 @@ import (
 // reaches the capacity, the least recently used item is deleted from
 // the cache. Note the capacity is not the number of items, but the
 // total sum of the Size() of each item.
+// 这里用读写锁
 type LRUCache struct {
 	mu sync.Mutex
 

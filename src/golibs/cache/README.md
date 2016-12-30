@@ -7,3 +7,6 @@ type safeMap struct {
 }
 ```
 ## 方法有 newMap Get Set Check Delete List
+http://openmymind.net/Writing-An-LRU-Cache/
+http://openmymind.net/High-Concurrency-LRU-Caching/
+http://highscalability.com/blog/2016/1/25/design-of-a-modern-cache.html

@@ -9,10 +9,11 @@ import (
 	pb "base/protos/helloworld"
 
 	"github.com/grpc-ecosystem/go-grpc-prometheus"
+	"fmt"
 )
 
 const (
-	address     = "localhost:50051"
+	address     = "localhost:50000"
 	defaultName = "world"
 )
 
@@ -23,6 +24,7 @@ func main() {
 		grpc.WithInsecure(),
 		grpc.WithUnaryInterceptor(grpc_prometheus.UnaryClientInterceptor),
            	grpc.WithStreamInterceptor(grpc_prometheus.StreamClientInterceptor))
+	fmt.Println(conn)
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}

@@ -4,17 +4,16 @@ import (
 	"api/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"base/model"
 	"time"
 )
 
 func Hello(c *gin.Context) {
 	//p := fmt.Println
 
-	db := models.InitDB()
-	defer db.Close()
-
 	//jsonTime := models.JSONTime(time.Now())
 	//p(jsonTime)
+	db := model.DB
 	jsonTime := models.JSONTime{Time: time.Now()}
 	account := models.Account{Tel: "Lbxxxc44450", Password: "sssdfss", StartAt: jsonTime}
 	db.NewRecord(account)

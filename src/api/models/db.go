@@ -1,38 +1,28 @@
 package models
 
 import (
-	"fmt"
-
-	"github.com/jinzhu/gorm"
+	"base/model"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
-type DB struct {
-	*gorm.DB
-}
 
-func InitDB() *DB {
+func InitDB() {
 	url := "postgresql://go_web_dev:go_web_dev@localhost/go_web_dev?sslmode=disable"
 
-	dialect := "postgres"
-
-	db, err := gorm.Open(dialect, url)
-	if err != nil {
-		panic(fmt.Errorf("fatal error when connecting database: %s", err))
-	}
-
-	// db.LogMode(true)
-	return &DB{db}
+	model.InitDB(url)
+	InitSchema()
+	Seed()
 }
 
-func (db *DB) InitSchema() {
+func InitSchema() {
+	db := model.DB
 	db.LogMode(true)
 	db.Exec("CREATE EXTENSION IF NOT EXISTS postgis;")
 	db.Exec("CREATE EXTENSION IF NOT EXISTS postgis_topology;")
-	db.AutoMigrate(&Account{}, &Location{})
 
+	db.AutoMigrate(&Account{}, &Location{})
 }
 
-func (db *DB) Seed() {
+func Seed() {
 	InitAccount()
 }

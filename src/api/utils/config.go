@@ -14,7 +14,7 @@ var config *viper.Viper
 // (external lib) and returns the configuration struct.
 func init() {
 	v := viper.New() // or direct use viper
-	env = os.Getenv("GOENV")
+	env := os.Getenv("GOENV")
 	v.SetConfigType("toml")
 	v.SetConfigName(env)
 

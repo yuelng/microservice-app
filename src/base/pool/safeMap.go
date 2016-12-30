@@ -1,10 +1,6 @@
-package rpc
+package pool
 
-import (
-	"sync"
-
-	"google.golang.org/grpc"
-)
+import "sync"
 
 type safeMap struct {
 	lock *sync.RWMutex
