@@ -6,6 +6,7 @@
 - greeter 中的dockerfile 是将生成的 服务二进制文件打包到 busybox:Ubuntu 14.04
 
 
+
 ├── Dockerfile
 ├── Makefile
 ├── README.md
@@ -14,6 +15,7 @@
 ├── handlers
 │   └── hello.go
 └── main.go
+
 
 
 docker承载各个微服务,APIGateway,其他服务,docker编排工具使用 kubernetes,配置文件为根目录下config文件夹
