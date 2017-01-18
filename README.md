@@ -21,6 +21,7 @@ docker承载各个微服务,APIGateway,其他服务,docker编排工具使用 kub
 build.sh 脚本的主要作用是 在golang1.7镜像的基础上,将源代码拷入镜像,在容器中编译文件,得到二进制文件
 得到的二进制文件,再打包到busybox镜像中,此镜像就可以作为部署的image,将该镜像推送到私人image库
 
+使用supervisor使得docker,kubelet,kube-proxy,fluentd自动化
 触发服务器部署项目,使用kuberctl从私有仓库中拉取最新的image,实现部署
 整个流程可分为 编写代码 编译 打包镜像 部署
 编译 打包镜像 部署 都由jenkins代劳,当然也可以手动将代码拷到目标服务器,自己在编译,打包,部署
@@ -52,6 +53,11 @@ build.sh 脚本的主要作用是 在golang1.7镜像的基础上,将源代码拷
 - restful API
 - gorm postgresql
 
+### rabbitmq
+- 持久化,在第一次声明队列和发送消息时指定其持久化属性为true
+- 接收应答,设置autoAck为false可以让客户端主动应答,当客户端拒绝此消息或者未应答便断开连接,就会使该消息重新入队
+- 发送确认,设置channel为confirm模式,所有发送的消息都会被确认一次
+
 restful gateway -- grpc call other service 
                 -- publish message by rabbitmq
 
@@ -59,6 +65,17 @@ restful gateway -- grpc call other service
 - 监控组件: prometheus + grafana
 - 跟踪组件: zipkin + elasticsearch
 - https
+postgis 地理坐标位置应用
+
+- single responsibility principle
+- bounded context
+- well defined interfaces
+- composability
+
+sentry 捕捉错误信息
+elasticsearch
+
+self deploy,部署都在源代码中设置好了,
 
 参考
 - [jwt-go](https://godoc.org/github.com/dgrijalva/jwt-go#example-Parse--Hmac)

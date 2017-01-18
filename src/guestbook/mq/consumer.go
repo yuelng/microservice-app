@@ -52,7 +52,6 @@ func Consumer() {
 	fmt.Println("Elasticsearch Feeder worker started")
 	consumer.RegisterSignalHandler()
 	consumer.Consume(handler)
-
 }
 
 var handler = func(delivery amqp.Delivery) {

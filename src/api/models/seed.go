@@ -7,11 +7,11 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
-	"base/model"
+	"api/services"
 )
 
 func add_account(name string, tel string, pass string, team_type int) {
-	db := model.DB
+	db := services.InitDB()
 	defer db.Close()
 
 	if db.Where("tel = ?", tel).First(&Account{}).RecordNotFound() {

@@ -17,20 +17,20 @@ limitations under the License.
 package main
 
 import (
+	pb "base/protos/helloworld"
 	"encoding/json"
+	"log"
 	"net/http"
 	"os"
 	"strings"
-	"log"
-	pb "base/protos/helloworld"
 
 	//appContext "base/util"
 	"base/rpc"
 
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
-	"github.com/xyproto/simpleredis"
 	"github.com/pborman/uuid"
+	"github.com/xyproto/simpleredis"
 	//"github.com/uber-go/zap"
 	"fmt"
 	"golang.org/x/net/context"
@@ -40,6 +40,7 @@ var (
 	masterPool *simpleredis.ConnectionPool
 	slavePool  *simpleredis.ConnectionPool
 )
+
 //var httpContext = context.Background()
 
 func ListRangeHandler(rw http.ResponseWriter, req *http.Request) {
@@ -112,7 +113,7 @@ func main() {
 const (
 	//address     = "greeter:50000"
 	greeterService = "localhost:50000"
-	defaultName = "world"
+	defaultName    = "world"
 )
 
 func greeterClient() {
@@ -120,8 +121,8 @@ func greeterClient() {
 	rpc.RegisterClient(greeterService, pb.NewGreeterClient)
 
 	name := defaultName
-	r, err :=rpc.Call(ctx,  greeterService, "SayHello", &pb.HelloRequest{Name: name,Num:"2"})
-	r1, err :=rpc.Call(ctx, greeterService, "SayHelloAgain", &pb.HelloRequest{Name: name})
+	r, err := rpc.Call(ctx, greeterService, "SayHello", &pb.HelloRequest{Name: name, Num: "2"})
+	r1, err := rpc.Call(ctx, greeterService, "SayHelloAgain", &pb.HelloRequest{Name: name})
 
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)

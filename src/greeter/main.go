@@ -19,12 +19,12 @@ const (
 func main() {
 	// start grpc server
 	server := &handlers.Server{}
+
 	lis, err := net.Listen("tcp", grpcPort)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-
 
 	pb.RegisterGreeterServer(s, server)
 	log.Println("start grpc server listen "+grpcPort)

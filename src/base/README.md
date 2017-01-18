@@ -63,6 +63,10 @@ use serialization
 在后台系统中总会有一些异步的任务不需要快速执行,所以可以将所有的异步任务放在一个 异步服务中执行,例如 发送邮件,发送短信,推送
 一个思路 将各个任务划分为不同的消息队列,在rabbitmq中具体表现是 不同的queue,使用不同的goroutine 将这些work进行异步
 
+use grpc
+- 使用gin的中间件功能,将实例化的client注入到context中,然后在handlers中调用
+- 或者在main函数中初始化到rpc的包,在handler中直接引入rpc包
+
 email
 - use mailgun 每个月10000 封免费邮件
 

@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	//"base/rpc"
 	//pb "base/protos/helloworld"
+	"api/services"
 )
 
 const (
@@ -17,7 +18,11 @@ const (
 func init() {
 	migration.CreateDatabase()
 
-	models.InitDB()
+	services.InitDB()
+	services.InitSchema()
+	services.Seed()
+	services.InitGrpc()
+	services.InitMem()
 }
 
 func main() {
@@ -32,21 +37,7 @@ func main() {
 	p(*enviroment)
 
 	r := gin.Default()
-	// Ping test
-	r.GET("/ping", func(c *gin.Context) {
-
-		c.String(200, "pong")
-	})
-
-	// Ping test
-	r.GET("/hello", handlers.Hello)
-
-	// Ping test
-	r.GET("/location", handlers.Location)
-
-	r.GET("/ws", handlers.WebSocket)
-
-	// Listen and Server in 0.0.0.0:8080
+	handlers.Register(r)
 	r.Run(":8080")
 
 	//rpc.StartServiceConns("","")
