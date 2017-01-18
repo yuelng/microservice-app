@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"io/ioutil"
-	"net/http"
 	"bufio"
+	"fmt"
+	"io/ioutil"
+	"log"
 	"net"
+	"net/http"
 	"net/url"
 )
 
@@ -24,9 +24,9 @@ func main() {
 	// basic http get, use proxy
 	proxy_addr := "http://192.168.1.123:8000"
 	url := "http://www.baidu.com"
-	url_proxy,_ :=  url.URL{}.Parse(*proxy_addr)
-	transport := &http.Transport{Proxy : http.ProxyURL(url_proxy)}
-	client := &http.Client{Transport : transport}
+	url_proxy, _ := url.URL{}.Parse(*proxy_addr)
+	transport := &http.Transport{Proxy: http.ProxyURL(url_proxy)}
+	client := &http.Client{Transport: transport}
 
 	req, err := http.NewRequest("GET", *url, nil)
 	if err != nil {
@@ -39,7 +39,7 @@ func main() {
 	}
 
 	if resp.StatusCode == 200 {
-		robots, err := ioutil.ReadAll(resp.Body);
+		robots, err := ioutil.ReadAll(resp.Body)
 		resp.Body.Close()
 		if err != nil {
 			log.Fatal(err.Error())
@@ -58,4 +58,3 @@ func main() {
 	fmt.Println(status)
 
 }
-

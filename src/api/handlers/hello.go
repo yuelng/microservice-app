@@ -2,15 +2,15 @@ package handlers
 
 import (
 	"api/models"
-	"github.com/gin-gonic/gin"
-	"net/http"
-	"time"
 	"api/services"
 	pb "base/protos/helloworld"
 	"context"
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"time"
 )
 
-func RegisterHello(router *gin.RouterGroup)  {
+func RegisterHello(router *gin.RouterGroup) {
 	r := router.Group("/hello")
 	r.GET("/hello", Hello)
 }

@@ -1,12 +1,12 @@
 package reflect
 
 import (
-	"reflect"
-	"fmt"
-	"log"
 	"context"
+	"fmt"
 	"golibs/safemap"
 	"google.golang.org/grpc"
+	"log"
+	"reflect"
 )
 
 var serviceConns = cache.NewSafeMap()
@@ -14,7 +14,7 @@ var serviceConns = cache.NewSafeMap()
 // StartServiceConns start grpc conns with balancer
 // address is etcd address, servicelist is servicename list
 // grpc roundRobin grpc etcd 服务发现
-func StartServiceConns(address string, serviceList []string)()  {
+func StartServiceConns(address string, serviceList []string) {
 	for _, serviceName := range serviceList {
 		go func(name string) {
 			// 这里应该是根据服务名称获取服务地址??
@@ -59,7 +59,7 @@ func CallRPC(ctx context.Context, client interface{}, serviceName string, method
 	vParameter = append(vParameter, reflect.ValueOf(conn))
 
 	// c[0] is serviceServer reflect.Value
-	c := vClient.Call(vParameter)  // ==> c := pb.NewGreeterClient(conn) 使用反射的函数调用返回值为reflect.Value类型
+	c := vClient.Call(vParameter) // ==> c := pb.NewGreeterClient(conn) 使用反射的函数调用返回值为reflect.Value类型
 
 	// rpc param
 	v := make([]reflect.Value, 2)
@@ -75,4 +75,3 @@ func CallRPC(ctx context.Context, client interface{}, serviceName string, method
 	}
 	return resp[0].Interface(), nil
 }
-

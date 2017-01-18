@@ -1,6 +1,8 @@
 package main
 
-import ("golibs/thrift/server/server")
+import (
+	"golibs/thrift/server/server"
+)
 
 /**
  * Created by Dynastymasra
@@ -12,7 +14,7 @@ import ("golibs/thrift/server/server")
  */
 
 func main() {
-  host := "localhost:4000"
-  server := server.NewServer(host)
-  server.Run()
+	host := "localhost:4000"
+	server := server.NewServer(host)
+	server.Run()
 }

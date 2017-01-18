@@ -10,13 +10,14 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
+
 // 参考 worc
 // StartServiceConns start grpc conns with balancer
 // 可以结合服务发现 wonaming,但是这里直接用skydns做服务发现
 // "greeter:50000"
 func RegisterClient(service string, client interface{}) bool {
 	// register factory, auto connect when conn is not set
-	factory := func()(interface{}, error) {return grpc.Dial(service,grpc.WithInsecure())}
+	factory := func() (interface{}, error) { return grpc.Dial(service, grpc.WithInsecure()) }
 	err := pool.RegisterConn(service, factory)
 	if err != true {
 		log.Printf(`connect to '%s' service failed: %v`, service, err)
@@ -44,7 +45,7 @@ func Call(ctx context.Context, serviceName string, method string, req interface{
 		return nil, fmt.Errorf("service conn '%s' not found", serviceName)
 	}
 
-	conn:=conn_.(*grpc.ClientConn)
+	conn := conn_.(*grpc.ClientConn)
 	client := pool.CacheMap.Get(serviceName)
 	if client == nil {
 		return nil, fmt.Errorf("you should register client for '%s' like pb.NewGreeterClient", serviceName)

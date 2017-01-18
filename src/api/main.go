@@ -13,8 +13,9 @@ import (
 )
 
 const (
-	address     = "localhost:50051"
+	address = "localhost:50051"
 )
+
 func init() {
 	migration.CreateDatabase()
 

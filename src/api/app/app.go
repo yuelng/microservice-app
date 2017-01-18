@@ -10,8 +10,6 @@ import (
 	"api/handlers/web"
 )
 
-
-
 func App() *gin.Engine {
 	app := gin.Default()
 
@@ -27,5 +25,3 @@ func App() *gin.Engine {
 
 	return app
 }
-
-

@@ -4,17 +4,16 @@ import (
 	"log"
 	"net"
 
-	"google.golang.org/grpc"
-	pb "golibs/grpc/protos"
 	"fmt"
 	"golang.org/x/net/context"
+	pb "golibs/grpc/protos"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )
 
 const (
 	port = ":50051"
 )
-
 
 // server is used to implement helloworld.GreeterServer.
 type server struct{}
@@ -24,7 +23,7 @@ func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 	md, _ := metadata.FromContext(ctx)
 	fmt.Println(md["key1"])
 	fmt.Println("hello from server")
-	return &pb.HelloReply{Message: "Hello " + in.Name+in.Num}, nil
+	return &pb.HelloReply{Message: "Hello " + in.Name + in.Num}, nil
 }
 
 func (s *server) SayHelloAgain(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {

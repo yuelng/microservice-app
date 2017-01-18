@@ -8,8 +8,8 @@ import (
 
 	"greeter/handlers"
 
-	"google.golang.org/grpc"
 	pb "base/protos/helloworld"
+	"google.golang.org/grpc"
 )
 
 const (
@@ -27,7 +27,7 @@ func main() {
 	s := grpc.NewServer()
 
 	pb.RegisterGreeterServer(s, server)
-	log.Println("start grpc server listen "+grpcPort)
+	log.Println("start grpc server listen " + grpcPort)
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

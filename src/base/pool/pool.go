@@ -1,8 +1,8 @@
 package pool
 
 import (
-	"log"
 	"errors"
+	"log"
 	"time"
 )
 
@@ -21,7 +21,7 @@ func RegisterConn(service string, factory Factory) bool {
 	return registerConns.Set(service, factory)
 }
 
-func GetConn(service string) (interface{},error)  {
+func GetConn(service string) (interface{}, error) {
 	var conn interface{}
 	if conn = ServiceConns.Get(service); conn == nil {
 		return SetConn(service)
@@ -29,7 +29,7 @@ func GetConn(service string) (interface{},error)  {
 	return conn, nil
 }
 
-func SetConn(service string) (interface{},error) {
+func SetConn(service string) (interface{}, error) {
 	var conn interface{}
 	factory := registerConns.Get(service)
 	if factory == nil {
@@ -53,4 +53,5 @@ func redial(factory Factory) interface{} {
 	}
 	return nil
 }
+
 // close service conn

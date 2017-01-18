@@ -6,6 +6,7 @@ import (
 
 	"github.com/streadway/amqp"
 )
+
 //
 //func failOnError(err error, msg string) {
 //	if err != nil {

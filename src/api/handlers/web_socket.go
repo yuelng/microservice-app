@@ -1,26 +1,24 @@
 package handlers
 
 import (
-
-	"golang.org/x/net/websocket"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/net/websocket"
 
-
-	"io"
 	"fmt"
+	"io"
 )
 
 func WebSocket(c *gin.Context) {
 	handler := websocket.Handler(EchoServer)
-    	handler.ServeHTTP( c.Writer,c.Request)
+	handler.ServeHTTP(c.Writer, c.Request)
 
 }
 
-func EchoServer(conn *websocket.Conn)  {
+func EchoServer(conn *websocket.Conn) {
 	io.Copy(conn, conn)
 }
 
-func WebSocket2(c *gin.Context)  {
+func WebSocket2(c *gin.Context) {
 	handler := websocket.Handler(countServer)
 	handler.ServeHTTP(c.Writer, c.Request)
 }

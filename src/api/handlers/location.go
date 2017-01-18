@@ -2,9 +2,9 @@ package handlers
 
 import (
 	"api/models"
+	"api/services"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"api/services"
 )
 
 func Location(c *gin.Context) {

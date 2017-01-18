@@ -1,9 +1,9 @@
 package main
 
-import ("net"
+import (
 	"log"
-	)
-
+	"net"
+)
 
 func Start() {
 	addr, err := net.ResolveTCPAddr("tcp", "8080")
@@ -23,6 +23,6 @@ func Start() {
 	}
 }
 
-func handleConn(conn *net.TCPConn)  {
+func handleConn(conn *net.TCPConn) {
 
 }

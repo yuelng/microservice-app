@@ -27,7 +27,7 @@ func GenerateJWT(id, duration int64, secret string) string {
 	return tokenString
 }
 
-func ParseJWT(tokenString, secret string)(int64, error) {
+func ParseJWT(tokenString, secret string) (int64, error) {
 	var claims jwt.StandardClaims
 	_, err := jwt.ParseWithClaims(tokenString, &claims, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secret), nil

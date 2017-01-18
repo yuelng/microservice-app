@@ -1,8 +1,8 @@
 package services
 
 import (
-	"fmt"
 	"base/protos/message"
+	"fmt"
 	me "github.com/bradfitz/gomemcache/memcache"
 )
 
@@ -16,11 +16,11 @@ func InitMem() *me.Client {
 	return mc
 }
 
-func test()  {
+func test() {
 	mc := me.New(memcacheService)
-     	mc.Set(&me.Item{Key: "foo", Value: []byte("my value")})
+	mc.Set(&me.Item{Key: "foo", Value: []byte("my value")})
 
-     	it,  err := mc.Get("foo")
+	it, err := mc.Get("foo")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -29,20 +29,20 @@ func test()  {
 	testSerialzation()
 }
 
-func testSerialzation()  {
+func testSerialzation() {
 	mc := me.New("192.168.1.10:11211")
 
 	ms := message.HelloRequest{
-		Name:"hello",
-		Num:"123",
+		Name: "hello",
+		Num:  "123",
 	}
 	byteValue, err := ms.Marshal()
 	if err != nil {
 		fmt.Println(err)
 	}
-	mc.Set(&me.Item{Key: "foo", Value:byteValue})
+	mc.Set(&me.Item{Key: "foo", Value: byteValue})
 
-     	it,  err := mc.Get("foo")
+	it, err := mc.Get("foo")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -54,7 +54,7 @@ func testSerialzation()  {
 	fmt.Println(newMessage.Num)
 }
 
-func dealError(err error)  {
+func dealError(err error) {
 	if err != nil {
 		fmt.Println(err)
 	}

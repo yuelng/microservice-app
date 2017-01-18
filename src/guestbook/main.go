@@ -19,6 +19,7 @@ package main
 import (
 	pb "base/protos/helloworld"
 	"encoding/json"
+	logrus "github.com/Sirupsen/logrus"
 	"log"
 	"net/http"
 	"os"
@@ -44,6 +45,9 @@ var (
 //var httpContext = context.Background()
 
 func ListRangeHandler(rw http.ResponseWriter, req *http.Request) {
+	logrus.WithFields(log.Fields{
+		"animal": "walrus",
+	}).Info("A walrus appears")
 	key := mux.Vars(req)["key"]
 	list := simpleredis.NewList(slavePool, key)
 	members := HandleError(list.GetAll()).([]string)

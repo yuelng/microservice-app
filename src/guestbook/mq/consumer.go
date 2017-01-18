@@ -3,10 +3,10 @@ package mq
 import (
 	"fmt"
 
+	"encoding/json"
 	"github.com/koding/logging"
 	"github.com/koding/rabbitmq"
 	"github.com/streadway/amqp"
-	"encoding/json"
 )
 
 func Consumer() {

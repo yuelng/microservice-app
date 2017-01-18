@@ -1,9 +1,9 @@
 package server
 
 import (
-  "log"
-  "git.apache.org/thrift.git/lib/go/thrift"
-  "squarecode/dynastymasra/thrift/person"
+	"git.apache.org/thrift.git/lib/go/thrift"
+	"log"
+	"squarecode/dynastymasra/thrift/person"
 )
 
 /**
@@ -16,43 +16,43 @@ import (
  */
 
 type Server struct {
-  host              string
-  handler           *PersonImpl
-  processor         *person.PersonServiceProcessor
-  transport         *thrift.TServerSocket
-  transportFactory  thrift.TTransportFactory
-  protocolFactory   *thrift.TBinaryProtocolFactory
-  server            *thrift.TSimpleServer
+	host             string
+	handler          *PersonImpl
+	processor        *person.PersonServiceProcessor
+	transport        *thrift.TServerSocket
+	transportFactory thrift.TTransportFactory
+	protocolFactory  *thrift.TBinaryProtocolFactory
+	server           *thrift.TSimpleServer
 }
 
 func NewServer(host string) *Server {
-  handler := NewPersonImpl()
-  processor := person.NewPersonServiceProcessor(handler)
-  transport, err := thrift.NewTServerSocket(host)
-  if err != nil {
-    panic(err)
-  }
+	handler := NewPersonImpl()
+	processor := person.NewPersonServiceProcessor(handler)
+	transport, err := thrift.NewTServerSocket(host)
+	if err != nil {
+		panic(err)
+	}
 
-  transportFactory := thrift.NewTFramedTransportFactory(thrift.NewTTransportFactory())
-  protocolFactory := thrift.NewTBinaryProtocolFactoryDefault()
-  server := thrift.NewTSimpleServer4(processor, transport, transportFactory, protocolFactory)
-  return &Server {
-    host:             host,
-    handler:          handler,
-    processor:        processor,
-    transport:        transport,
-    transportFactory: transportFactory,
-    protocolFactory:  protocolFactory,
-    server:           server,
-  }
+	transportFactory := thrift.NewTFramedTransportFactory(thrift.NewTTransportFactory())
+	protocolFactory := thrift.NewTBinaryProtocolFactoryDefault()
+	server := thrift.NewTSimpleServer4(processor, transport, transportFactory, protocolFactory)
+	return &Server{
+		host:             host,
+		handler:          handler,
+		processor:        processor,
+		transport:        transport,
+		transportFactory: transportFactory,
+		protocolFactory:  protocolFactory,
+		server:           server,
+	}
 }
 
 func (server *Server) Run() {
-  log.Printf("Server listening on %s...\n", server.host)
-  server.server.Serve()
+	log.Printf("Server listening on %s...\n", server.host)
+	server.server.Serve()
 }
 
 func (server *Server) Stop() {
-  log.Println("Stopping server...")
-  server.server.Stop()
+	log.Println("Stopping server...")
+	server.server.Stop()
 }

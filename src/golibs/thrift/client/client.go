@@ -1,9 +1,9 @@
 package main
 
 import (
+	"golibs/thrift/client/api/routes"
 	"log"
 	"runtime"
-	"golibs/thrift/client/api/routes"
 
 	"github.com/gin-gonic/gin"
 )

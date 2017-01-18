@@ -2,9 +2,9 @@ package services
 
 import (
 	"api/models"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"github.com/jinzhu/gorm"
 	"fmt"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"sync"
 )
 
@@ -30,7 +30,7 @@ func InitDB() *gorm.DB {
 }
 
 func InitSchema() {
-	db:= InitDB()
+	db := InitDB()
 	db.LogMode(true)
 	db.Exec("CREATE EXTENSION IF NOT EXISTS postgis;")
 	db.Exec("CREATE EXTENSION IF NOT EXISTS postgis_topology;")
