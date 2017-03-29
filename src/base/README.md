@@ -70,6 +70,9 @@ use grpc
 email
 - use mailgun 每个月10000 封免费邮件
 
+github pages
+- 免费托管,轻松发布的web页面
+
 监控
 - prometheus
 

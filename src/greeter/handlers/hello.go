@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"golang.org/x/net/context"
 	//"google.golang.org/grpc/metadata"
-	"encoding/json"
-	"golang.org/x/crypto/bcrypt"
-	"golang.org/x/tools/go/gcimporter15/testdata"
+	//"encoding/json"
+	//"golang.org/x/crypto/bcrypt"
+	//"golang.org/x/tools/go/gcimporter15/testdata"
 )
 
 // server is used to implement helloworld.GreeterServer.

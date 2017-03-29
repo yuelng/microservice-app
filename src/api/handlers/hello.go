@@ -2,12 +2,13 @@ package handlers
 
 import (
 	"api/models"
-	"api/services"
-	pb "base/protos/helloworld"
-	"context"
+	//"api/services"
+	//pb "base/protos/helloworld"
+	//"context"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
+	//"api/services"
 )
 
 func RegisterHello(router *gin.RouterGroup) {
@@ -24,12 +25,12 @@ func Hello(c *gin.Context) {
 	jsonTime := models.JSONTime{Time: time.Now()}
 	account := models.Account{Tel: "Lbxxxc44450", Password: "sssdfss", StartAt: jsonTime}
 
-	db := services.InitDB()
-	db.NewRecord(account)
-	db.Create(&account)
-
-	cli := services.InitGrpc()
-	cli.SayHello(context.Background(), &pb.HelloRequest{Name: "hello", Num: "2"})
+	//db := services.InitDB()
+	//db.NewRecord(account)
+	//db.Create(&account)
+	//
+	//cli := services.InitGrpc()
+	//cli.SayHello(context.Background(), &pb.HelloRequest{Name: "hello", Num: "2"})
 
 	//p(account)
 	//p(time.Now().UTC())
