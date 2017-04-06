@@ -3,7 +3,6 @@ package main
 import (
 	"api/handlers"
 	"api/migration"
-	"api/models"
 	"flag"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -20,8 +19,6 @@ func init() {
 	migration.CreateDatabase()
 
 	services.InitDB()
-	services.InitSchema()
-	services.Seed()
 	services.InitGrpc()
 	services.InitMem()
 }

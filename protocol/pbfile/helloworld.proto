@@ -34,7 +34,9 @@
 // protoc -I helloworld/ helloworld/helloworld.proto --go_out=plugins=grpc:helloworld
 
 syntax = "proto3";
+
 package helloworld;
+option go_package="protocol/gen-go/helloworld;helloworld";
 
 // The greeting service definition.
 service Greeter {

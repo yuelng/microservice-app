@@ -1,0 +1,14 @@
+[
+  {
+    "app_id": "wxxxxxxxxx",
+    "app_name": "今晚打老虎",
+    "api_key": "xxxxxxxxxxxxxx",
+    "merchant_id": "1234567",
+    "client_type": "APP",
+    "certificate_p12": "/Users/xxx/wx12a1.p12",
+    "rootca_pem": "/Users/xxx/rootca.pem"
+  },
+  {
+    //...
+  }
+]
