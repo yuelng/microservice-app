@@ -1,6 +1,8 @@
 // The request message containing the user's name.
 syntax = "proto3";
+
 package message;
+option go_package="protocol/gen-go/message;message";
 
 message HelloRequest {
     string name = 1;
