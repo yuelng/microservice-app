@@ -1,3 +1,0 @@
-[database]
-dialect = 'postgres'
-url = 'postgresql://apollo_dev:apollo_dev@localhost/apollo_dev?sslmode=disable'
